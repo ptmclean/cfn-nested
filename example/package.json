@@ -1,0 +1,30 @@
+{
+  "name": "cfn-nested-examples",
+  "version": "1.0.0",
+  "description": "An example to show end to end usage.",
+  "main": "packAndDeploy.js",
+  "scripts": {
+    "start": "node -r esm ./packAndDeploy"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ptmclean/cfn-nested.git"
+  },
+  "keywords": [
+    "AWS",
+    "cloudformation",
+    "javascript"
+  ],
+  "author": "ptmclean",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ptmclean/cfn-nested/issues"
+  },
+  "homepage": "https://github.com/ptmclean/cfn-nested#readme",
+  "dependencies": {
+    "cfn-nested": "0.0.2"
+  },
+  "devDependencies": {
+    "esm": "3.2.10"
+  }
+}

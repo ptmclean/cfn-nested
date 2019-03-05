@@ -1,10 +1,14 @@
 {
   "name": "cfn-nested",
-  "version": "0.0.0",
+  "version": "0.0.2",
   "description": "A promise based way to deploy nested cloud formation stacks",
-  "main": "index.js",
+  "main": "lib/index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "lint": "eslint \"{build,src}/**/*.js\"",
+    "build": "cross-env BABEL_ENV=production babel src --out-dir lib",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "prepublishOnly": "npm run build",
+    "start": "node -r esm ./src/index.js"
   },
   "keywords": [
     "AWS",
@@ -13,5 +17,22 @@
     "javascript"
   ],
   "author": "ptmclean",
-  "license": "ISC"
+  "license": "ISC",
+  "devDependencies": {
+    "babel-cli": "6.26.0",
+    "babel-eslint": "10.0.1",
+    "babel-plugin-add-module-exports": "1.0.0",
+    "babel-polyfill": "6.26.0",
+    "babel-preset-env": "1.7.0",
+    "cross-env": "5.2.0",
+    "eslint": "5.15.0",
+    "eslint-config-airbnb": "17.1.0",
+    "eslint-plugin-import": "2.16.0",
+    "eslint-plugin-jsx-a11y": "6.2.1",
+    "eslint-plugin-react": "7.12.4",
+    "esm": "3.2.10",
+    "path": "0.12.7",
+    "webpack": "4.29.6",
+    "webpack-cli": "3.2.3"
+  }
 }
