@@ -1,8 +1,8 @@
 # Cloudformation Nested
 
-A promise based library for packaging and deploying nested cloudformation stacks. Currently the aws SDK does not supprt nested stacks. This implementation is a thin wrapper over the AWS cli to provice native javascript support for nested cloudformation stacks.
+A promise based library for packaging and deploying nested cloudformation stacks. Currently the aws SDK does not support nested stacks. This implementation is a thin wrapper over the AWS cli to provide native javascript support for nested cloudformation stacks.
 
-## Pre-Requisits
+## Prerequisites
 This library assumes that AWS cli is installed and configured. It can be installed following the instruction [here](https://docs.aws.amazon.com/cli/latest/userguide/cli-chap-install.html).
 
 to configure create an AWS user with sufficient permissions for your stack/s and configure the cli with...
@@ -21,7 +21,7 @@ const cfnNested = require('cfn-nested');
 const cfnNested = new cfnNested('cloudformation-bucket', './path/to/template/template.yml', 'MyStackName');
 ```
 
-Packaging creates a deployable template pointing to templates in the s3 bucket provided on instantiation. The template is created in the file system on the relative path ./packaged/
+Packaging creates a deploy-able template pointing to templates in the s3 bucket provided on instantiation. The template is created in the file system on the relative path ./packaged/
 ```
 let templateLocation;
 
@@ -61,7 +61,7 @@ Constructs a new instance of CfnNested.
 constructor(bucketName: string, templateFilename: string, stackName: string, silent = false: bool)
 ```
 #### Parameters
-**bucketName**: Nested cloudformation templates are packaged into intermediate templated that must be stored in a bucket. This is the bucket name to use. The bucket does not need to exist prior to class instantiation. If the bucket does not exist it will be created on the the call of package.  
+**bucketName**: Nested cloudformation templates are packaged into intermediate templates that must be stored in a bucket. This is the bucket name to use. The bucket does not need to exist prior to class instantiation. If the bucket does not exist it will be created on the the call of package.  
 
 **templateFilename**: The location of the base cloudformation template to use for this nested stack.  
 
@@ -97,7 +97,7 @@ delete()
 undefined:
 
 ### stackExists
-Checks for exsistance of the stack
+Checks for existence of the stack
 ```
 stackExists()
 ```
@@ -108,7 +108,7 @@ bool: true if a stack with the given stack name exists in the configured AWS acc
 ```
 bucketExists()
 ```
-#### Returrns
+#### Returns
 bool: true if the bucket already exists
 
 ### describeStack
