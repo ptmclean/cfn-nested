@@ -8,23 +8,23 @@ export function createFolderIfNotExists(folder) {
   }
 }
 
-export async function runCommand(command) {
-  console.log('-'.repeat(process.stdout.columns));
-  console.log(`${command}`);
+export async function runCommand(command, silent) {
+  if (!silent) console.log('-'.repeat(process.stdout.columns));
+  if (!silent) console.log(`${command}`);
   try {
     const exec = util.promisify(childProcess.exec);
     const { stdout, stderr } = await exec(command);
     if (stderr) {
-      console.log(`Failed to call ${command}`, stderr);
-      console.log('-'.repeat(process.stdout.columns));
+      if (!silent) console.log(`Failed to call ${command}`, stderr);
+      if (!silent) console.log('-'.repeat(process.stdout.columns));
       throw stderr;
     }
-    console.log(`\n${stdout}`);
-    console.log('-'.repeat(process.stdout.columns));
+    if (!silent) console.log(`\n${stdout}`);
+    if (!silent) console.log('-'.repeat(process.stdout.columns));
     return stdout;
   } catch (e) {
-    console.log(`Failed to call ${command}`, e);
-    console.log('-'.repeat(process.stdout.columns));
+    if (!silent) console.log(`Failed to call ${command}`, e);
+    if (!silent) console.log('-'.repeat(process.stdout.columns));
     throw e;
   }
 }

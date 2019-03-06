@@ -52,3 +52,5 @@ A complete example is provided in the [example](https://github.com/ptmclean/cfn-
 npm install
 npm start
 ```
+
+## API
