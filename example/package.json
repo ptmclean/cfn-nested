@@ -22,9 +22,10 @@
   },
   "homepage": "https://github.com/ptmclean/cfn-nested#readme",
   "dependencies": {
-    "cfn-nested": "0.0.2"
+    "cfn-nested": "latest"
   },
   "devDependencies": {
+    "babel-plugin-syntax-class-constructor-call": "6.18.0",
     "esm": "3.2.10"
   }
 }
