@@ -1,6 +1,6 @@
 {
   "name": "cfn-nested",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "A promise based way to deploy nested cloud formation stacks",
   "main": "lib/index.js",
   "scripts": {
