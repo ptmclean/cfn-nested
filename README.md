@@ -18,16 +18,16 @@ import cfnNested from 'cfn-nested';
 const cfnNested = require('cfn-nested');
 
 // This will instantiate the class and tie it to the bucket given as a parameter. If the bucket does not exist it is created when package is called on the class.
-const cfnNested = new cfnNested('cloudformation-bucket');
+const cfnNested = new cfnNested('cloudformation-bucket', './path/to/template/template.yml', 'MyStackName');
 ```
 
 Packaging creates a deployable template pointing to templates in the s3 bucket provided on instantiation. The template is created in the file system on the relative path ./packaged/
 ```
 let templateLocation;
 
-templateLocation = await cfnNested.package('./templates/template.yml');
+templateLocation = await cfnNested.package();
 // Or
-cfnNested.package('./templates/template.yml')
+cfnNested.package()
   .then((result, error) => {
     if (error) throw error;
     templateLoctaion = result;
@@ -35,11 +35,11 @@ cfnNested.package('./templates/template.yml')
   });
 ```
 
-Deployment needs a stack name and the location provided by package.
+Once packaged your stack can be deployed...
 ```
-const stackDescription = await cfnNested.deploy('StackName', templateLocation);
+const stackDescription = await cfnNested.deploy();
 // Or
-cfnNested.deploy('StackName', templateLocation)
+cfnNested.deploy()
   .then((result, error) => {
     if (error) throw error;
     console.log('Deployment Status', result.StackResources[0].ResourceStatus); //CREATE_COMPLETE
@@ -52,5 +52,3 @@ A complete example is provided in the [example](https://github.com/ptmclean/cfn-
 npm install
 npm start
 ```
-
-## API
