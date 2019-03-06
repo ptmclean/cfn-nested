@@ -52,3 +52,93 @@ A complete example is provided in the [example](https://github.com/ptmclean/cfn-
 npm install
 npm start
 ```
+
+## API
+
+### Constructor
+Constructs a new instance of CfnNested.
+```
+constructor(bucketName: string, templateFilename: string, stackName: string, silent = false: bool)
+```
+#### Parameters
+**bucketName**: Nested cloudformation templates are packaged into intermediate templated that must be stored in a bucket. This is the bucket name to use. The bucket does not need to exist prior to class instantiation. If the bucket does not exist it will be created on the the call of package.  
+
+**templateFilename**: The location of the base cloudformation template to use for this nested stack.  
+
+**stackName**: This is the name of the stack used when deploying or updating the stack.  
+
+**silent**(optional): If true console output is omitted.  
+
+#### Returns
+CfnNested: The instance to operate on for this stack.
+
+### Package
+Packages the stack.
+```
+package()
+```
+#### Returns
+string: The location of the packaged cloudformation template
+
+### deploy
+Deploys the stack.
+```
+deploy()
+```
+#### Returns
+object: The JSON parsed output form the [describe-stack](https://docs.aws.amazon.com/cli/latest/reference/cloudformation/describe-stack-resource.html) aws cli command for the stack on completion of the stack creation.
+
+### delete
+Deletes the nested stack
+```
+delete()
+```
+#### Returns
+undefined:
+
+### stackExists
+Checks for exsistance of the stack
+```
+stackExists()
+```
+#### Returns
+bool: true if a stack with the given stack name exists in the configured AWS account.
+
+### bucketExists
+```
+bucketExists()
+```
+#### Returrns
+bool: true if the bucket already exists
+
+### describeStack
+Describes the current state of the stack
+```
+describeStack()
+```
+#### Returns
+object: The JSON parsed output form the [describe-stack](https://docs.aws.amazon.com/cli/latest/reference/cloudformation/describe-stack-resource.html) aws cli command for the stack on completion of the stack creation.
+
+### deleteBucket
+Deletes the configured bucket.
+```
+deleteBucket()
+```
+
+#### Returns
+undefined:
+
+### createBucketIfNotExists
+Creates the configured bucket. **Note**. This is called as part of package if the bucket does not already exist.
+```
+createBucketIfNotExists()
+```
+
+#### Returns
+undefined:
+
+## Test
+The tests are contained in the test directory. They are full end to end integration tests and require the AWS cli to be configured with an account to be run. Once the cli is configured the tests can be run using the command...
+```
+npm test
+```
