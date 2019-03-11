@@ -5,4 +5,5 @@ example
 packaged
 .eslintrc
 .gitignore
+.babelrc
 travis.yml

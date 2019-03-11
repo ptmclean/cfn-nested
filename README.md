@@ -11,14 +11,19 @@ aws configure
 ```
 
 ## Getting Started
-The first step is to create a class instance...
+To install...
 ```
-import cfnNested from 'cfn-nested';
-// Or
-const cfnNested = require('cfn-nested');
+npm i cfn-nested
+```
 
-// This will instantiate the class and tie it to the bucket given as a parameter. If the bucket does not exist it is created when package is called on the class.
-const cfnNested = new cfnNested('cloudformation-bucket', './path/to/template/template.yml', 'MyStackName');
+To create a class instance...
+```
+import CfnNested from 'cfn-nested';
+// Or
+const cfnNested = require('cfn-nested').default;
+
+// This will instantiate the class and tie it to the bucket, template and stack name given as parameters. If the bucket does not exist it is created when package is called on the class.
+const cfnNested = new CfnNested('cloudformation-bucket', './path/to/template/template.yml', 'MyStackName');
 ```
 
 Packaging creates a deploy-able template pointing to templates in the s3 bucket provided on instantiation. The template is created in the file system on the relative path ./packaged/
@@ -117,7 +122,7 @@ Describes the current state of the stack
 describeStack()
 ```
 #### Returns
-object: The JSON parsed output form the [describe-stack](https://docs.aws.amazon.com/cli/latest/reference/cloudformation/describe-stack-resource.html) aws cli command for the stack on completion of the stack creation.
+object: The JSON parsed output form the [describe-stack](https://docs.aws.amazon.com/cli/latest/reference/cloudformation/describe-stack-resource.html) aws cli command against the stack name provided on instantiation.
 
 ### deleteBucket
 Deletes the configured bucket.
