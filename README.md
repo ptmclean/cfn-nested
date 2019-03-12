@@ -88,8 +88,11 @@ string: The location of the packaged cloudformation template
 ### deploy
 Deploys the stack.
 ```
-deploy()
+deploy(parameters: object)
 ```
+#### Parameters
+**parameters** An object of key value pairs to be passed as parameters to the cloudformation template.
+
 #### Returns
 object: The JSON parsed output form the [describe-stack](https://docs.aws.amazon.com/cli/latest/reference/cloudformation/describe-stack-resource.html) aws cli command for the stack on completion of the stack creation.
 

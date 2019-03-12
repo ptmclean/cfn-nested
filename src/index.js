@@ -39,20 +39,24 @@ export default class CfnNested {
     return this.packagedTemplate;
   }
 
-  async deploy() {
+  async deploy(parameters) {
     try {
       this.log(`Deploying ${this.stackName}`);
       if (!this.packagedTemplate) {
         throw new Error(`${this.stackName} must be packaged prior to deployment`);
       }
-      const deployCommand = `aws cloudformation deploy --template-file ${this.packagedTemplate} --stack-name ${this.stackName} --capabilities CAPABILITY_IAM`;
+      let deployCommand = `aws cloudformation deploy --template-file ${this.packagedTemplate} --stack-name ${this.stackName} --capabilities CAPABILITY_IAM `;
+      if (parameters) {
+        deployCommand += '--parameter-overrides ';
+        deployCommand += Object.keys(parameters).map(k => `${k}=${parameters[k]}`).join(' ');
+      }
       await runCommand(deployCommand, this.silent);
     } catch (e) {
       this.log('Failed to deploy stack...');
       this.log('ERROR: e');
       throw e;
     }
-    return this.describeStack(this.stackName);
+    return this.describeStack();
   }
 
   async delete() {
@@ -61,7 +65,7 @@ export default class CfnNested {
       const deleteCommand = `aws cloudformation delete-stack --stack-name ${this.stackName}`;
       await runCommand(deleteCommand, this.silent);
       // eslint-disable-next-line no-await-in-loop
-      while (await this.stackExists(this.stackName)) {
+      while (await this.stackExists()) {
         // eslint-disable-next-line no-await-in-loop
         await sleep(5000);
       }
@@ -74,7 +78,7 @@ export default class CfnNested {
 
   async stackExists() {
     try {
-      await this.describeStack(this.stackName);
+      await this.describeStack();
     } catch (e) {
       return false;
     }
@@ -119,7 +123,7 @@ export default class CfnNested {
 
   async createBucketIfNotExists() {
     try {
-      if (!await this.bucketExists(this.bucketName)) {
+      if (!await this.bucketExists()) {
         this.log(`Creating ${this.bucketName}`);
         const bucketCreateCommand = `aws s3 mb s3://${this.bucketName}`;
         await runCommand(bucketCreateCommand, this.silent);
